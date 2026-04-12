@@ -1,0 +1,12 @@
+#!/bin/env bash
+
+Xephyr -ac -screen 2560x1080 -br -reset -terminate :420 &
+export DISPLAY=:420
+sleep 1
+
+make clean
+make
+
+while type dwm >/dev/null; do
+    ./dwm && continue || break
+done
