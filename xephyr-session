@@ -7,8 +7,9 @@ sleep 1
 make clean
 make
 
-if [[ ":$PATH:" != *":$PWD/scripts/:"* ]]; then
-    export PATH="$PATH:$PWD/scripts/"
+BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+if [[ ":$PATH:" != *":$BASE_DIR/scripts/:"* ]]; then
+    export PATH="$PATH:$BASE_DIR/scripts/"
 fi
 
 while type dwm >/dev/null; do
