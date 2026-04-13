@@ -11,13 +11,12 @@ static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#0a0a0a";
 static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
+static const char col_gray3[]       = "#9A8F8A";
 static const char col_cyan[]        = "#6E7F96";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray2, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_gray1, col_cyan  },
+	[SchemeSel]  = { col_gray3, col_gray1, col_cyan  },
 };
 
 static const char *tagsel[][2] = {
@@ -28,7 +27,12 @@ static const char *tagsel[][2] = {
   { col_cyan,  col_gray1 },  /* has pinned tag */
 };
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+/* tagging: refer to https://github.com/bakkeby/patches/wiki/tagicons */
+static char *tagicons[][NUMTAGS] = {
+	[IconsDefault]        = { "" },
+	[IconsVacant]         = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+	[IconsOccupied]       = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -70,7 +74,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
 static const char *termcmd[]  = { "usr-terminal", NULL };
 static const char *applaunchercmd[]  = { "usr-applauncher", NULL };
 
@@ -130,5 +134,7 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTagBar,            0,              Button4,        cycleiconset,   {.i = +1 } },
+	{ ClkTagBar,            0,              Button5,        cycleiconset,   {.i = -1 } },
 };
 
