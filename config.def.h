@@ -1,30 +1,40 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 6;        /* gaps between windows */
+static unsigned int borderpx        = 2;        /* border pixel of windows */
+static unsigned int gappx           = 6;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 32;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#0a0a0a";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#9A8F8A";
-static const char col_cyan[]        = "#6E7F96";
-static const char *colors[][3]      = {
+static char font[]                  = "monospace:size=10";
+static char dmenufont[]             = "monospace:size=10";
+static const char *fonts[]          = { font };
+static char statusbarcolor[]        = "#0a0a0a";
+static char col_gray2[]             = "#444444";
+static char col_gray3[]             = "#9A8F8A";
+static char col_cyan[]              = "#6E7F96";
+static char *colors[][3]            = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray2, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray3, col_gray1, col_cyan  },
+	[SchemeNorm] = { col_gray2, statusbarcolor, col_gray2 },
+	[SchemeSel]  = { col_gray3, statusbarcolor, col_cyan  },
 };
 
-static const char *tagsel[][2] = {
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+	{ "font",               STRING,  &font },
+	{ "statusbarcolor",     STRING,  &statusbarcolor },
+	{ "borderpx",           INTEGER, &borderpx },
+};
+
+static char *tagsel[][2] = {
    /*   fg         bg    */
-  { col_gray2, col_gray1 },  /* norm */
-  { col_cyan,  col_gray1 }, /* sel */
-  { col_gray2, col_gray1 },  /* occ but not sel */
-  { col_cyan,  col_gray1 },  /* has pinned tag */
+  { col_gray2, statusbarcolor },  /* norm */
+  { col_cyan,  statusbarcolor }, /* sel */
+  { col_gray2, statusbarcolor },  /* occ but not sel */
+  { col_cyan,  statusbarcolor },  /* has pinned tag */
 };
 /* tagging */
 /* tagging: refer to https://github.com/bakkeby/patches/wiki/tagicons */
@@ -51,9 +61,10 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 static const int refreshrate = 120;  /* refresh rate (per second) for client move/resize */
 
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "󰙀",    tilewide },
+	{ "󰙀",      tilewide },
 	{ "󰄶",      NULL },    /* no layout function means floating behavior */
 	{ "",      monocle },
 	{ "󰙀",      tile },    /* first entry is default */
@@ -74,7 +85,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", statusbarcolor, "-nf", col_gray3, "-sb", col_cyan, "-sf", statusbarcolor, NULL };
 static const char *termcmd[]  = { "usr-terminal", NULL };
 static const char *applaunchercmd[]  = { "usr-applauncher", NULL };
 
@@ -116,6 +127,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY|ShiftMask,             XK_r,      livereloadxrdb, {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_r,      quit,           {0} },
 };
 
