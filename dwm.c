@@ -3421,7 +3421,7 @@ centeredmaster(Monitor *m)
 		/* nmaster clients are stacked vertically, in the center
 		 * of the screen */
 		h = (m->wh - my) * (c->cfact / mfacts);
-		resize(c, m->wx + mx - gappx, m->wy + my, mw - 2*c->bw + gappx*2, h - 2*c->bw, 0);
+		resize(c, m->wx + mx, m->wy + my, mw - 2*c->bw, h - 2*c->bw, 0);
 		if(my + HEIGHT(c) < m->mh)
 			my += HEIGHT(c);
 		mfacts -= c->cfact;
@@ -3433,15 +3433,15 @@ centeredmaster(Monitor *m)
 				resize(c, m->wx, m->wy + ety, tw - 2*c->bw,
 			       h - 2*c->bw, 0);
 			else
-				resize(c, m->wx, m->wy + ety, tw - 2*c->bw,
+				resize(c, m->wx, m->wy + ety, tw - 2*c->bw + gappx,
 			       h - 2*c->bw, 0);
 			if(ety + HEIGHT(c) < m->mh)
 				ety += HEIGHT(c);
 			lfacts -= c->cfact;
 		} else {
 			h = (m->wh - oty) * (c->cfact / rfacts);
-			resize(c, m->wx + mx + mw, m->wy + oty,
-			       tw - 2*c->bw, h - 2*c->bw, 0);
+			resize(c, m->wx + mx + mw - gappx, m->wy + oty,
+			       tw - 2*c->bw + gappx, h - 2*c->bw, 0);
 			if(oty + HEIGHT(c) < m->mh)
 				oty += HEIGHT(c);
 			rfacts -= c->cfact;
