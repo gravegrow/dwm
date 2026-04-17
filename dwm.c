@@ -1116,7 +1116,7 @@ drawbar(Monitor *m)
 	char *icon;
 	Client *c;
 
-	if (!m->showbar)
+	if (!m->showbar || verticalbar)
 		return;
 
 	/* draw status first so it can be overdrawn by tags later */
@@ -2927,10 +2927,19 @@ updatebarpos(Monitor *m)
 {
 	m->wy = m->my;
 	m->wh = m->mh;
+	m->wx = m->mx;
+	m->ww = m->mw;
+
 	if (m->showbar) {
-		m->wh -= bh;
-		m->by = m->topbar ? m->wy : m->wy + m->wh;
-		m->wy = m->topbar ? m->wy + bh : m->wy;
+		if (verticalbar) {
+			m->wx += bh;
+			m->ww -= bh;
+			m->by = -bh;
+		} else {
+			m->wh -= bh;
+			m->by = m->topbar ? m->wy : m->wy + m->wh;
+			m->wy = m->topbar ? m->wy + bh : m->wy;
+		}
 	} else
 		m->by = -bh;
 }

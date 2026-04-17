@@ -8,6 +8,7 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int swterminheritfs    = 1;        /* 1 terminal inherits fullscreen on unswallow, 0 otherwise */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int verticalbar        = 1;        /* 1 means disable default bar and enbale support for external vertical bar */
 static const int user_bh            = 32;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static char font[]                  = "monospace:size=10";
 static char dmenufont[]             = "monospace:size=10";
