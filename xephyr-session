@@ -7,9 +7,8 @@ sleep 1
 make clean
 make
 
-BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
-if [[ ":$PATH:" != *":$BASE_DIR/scripts/:"* ]]; then
-    export PATH="$PATH:$BASE_DIR/scripts/"
+if [[ ":$PATH:" != *":$XDG_CONFIG_HOME/scripts/:"* ]]; then
+    export PATH="$PATH:$XDG_CONFIG_HOME/scripts/"
 fi
 
 while type dwm >/dev/null; do
