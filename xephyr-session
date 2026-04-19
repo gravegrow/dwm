@@ -11,6 +11,8 @@ if [[ ":$PATH:" != *":$XDG_CONFIG_HOME/scripts/:"* ]]; then
     export PATH="$PATH:$XDG_CONFIG_HOME/scripts/"
 fi
 
+eww open statusbar
+
 while type dwm >/dev/null; do
     ./dwm && continue || break
 done
