@@ -9,7 +9,7 @@ static const int swterminheritfs    = 1;        /* 1 terminal inherits fullscree
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int verticalbar        = 1;        /* 1 means disable default bar and enbale support for external vertical bar */
-static const int user_bh            = 32;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int user_bh            = 40;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static char font[]                  = "monospace:size=10";
 static char dmenufont[]             = "monospace:size=10";
 static const char *fonts[]          = { font };
@@ -31,6 +31,12 @@ ResourcePref resources[] = {
 	{ "font",               STRING,  &font },
 	{ "statusbarcolor",     STRING,  &statusbarcolor },
 	{ "borderpx",           INTEGER, &borderpx },
+};
+
+/* Auotstart */
+static const char *const autostart[] = {
+	"usr-autostart", NULL,
+	NULL /* terminate */
 };
 
 static char *tagsel[][2] = {
@@ -59,6 +65,7 @@ static const Rule rules[] = {
 	{ "st-256color",  NULL,       NULL,            0,         0,          1,           0,        -1,         0 },
 	{ NULL,           NULL,       "Event Tester",  0,         0,          0,           1,        -1,         0 }, /* xev */
 	{ "Eww",          NULL,       NULL,            0,         0,          0,           0,        -1,         1 },
+	{ "qBittorrent",  NULL,       NULL,            1 << 4,    0,          0,           0,         1,         0 },
 };
 
 /* layout(s) */
@@ -100,6 +107,8 @@ static const char *filesgui[]  = { "usr-files-gui", NULL };
 static const char *browser[]  = { "usr-browser", NULL };
 static const char *browserprivate[]  = { "usr-browser-private", NULL };
 static const char *colorpicker[]  = { "usr-colorpicker", NULL };
+static const char *screenshot[]  = { "usr-screenshot", NULL };
+static const char *screengrab[]  = { "usr-screengrab", NULL };
 
 #include <X11/XF86keysym.h>
 
@@ -117,6 +126,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_c,      spawn,          {.v = colorpicker } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filestui } },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = filesgui } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = screengrab } },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = screenshot } },
 	{ MODKEY,                       XK_w,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -193,4 +204,3 @@ static IPCCommand ipccommands[] = {
   IPCCOMMAND(  setlayoutsafe,       1,      {ARG_TYPE_PTR}    ),
   IPCCOMMAND(  quit,                1,      {ARG_TYPE_NONE}   )
 };
-
