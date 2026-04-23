@@ -2,6 +2,7 @@ patches/
 
 config.h
 dwm
+dwm-msg
 
 *.o
 *.obj
